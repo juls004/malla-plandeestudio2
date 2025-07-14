@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Malla Interactiva - Ingeniería Química</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div id="login-container" class="modal">
+    <h2>Ingresar usuario</h2>
+    <input type="text" id="username" placeholder="Tu nombre de usuario" />
+    <button onclick="iniciarUsuario()">Ingresar</button>
+  </div>
+
+  <div id="app-container" style="display: none;">
+    <h1>Malla Interactiva - Ingeniería Química</h1>
+    <div class="leyenda">
+      <span class="box regularizada"></span> Regularizada
+      <span class="box aprobada"></span> Aprobada
+      <span class="box disponible"></span> Disponible
+      <span class="box bloqueada"></span> Bloqueada
+    </div>
+    <div id="malla-container"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
