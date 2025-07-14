@@ -1,0 +1,133 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #0d1b2a;
+  margin: 0;
+  padding: 0;
+  color: #e0f2f1;
+}
+
+h1, h2 {
+  text-align: center;
+  color: #00bfa5;
+}
+
+.leyenda {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.box {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+.box.aprobada { background-color: #00c853; }
+.box.regularizada { background-color: #1de9b6; }
+.box.disponible { background-color: #80cbc4; }
+.box.bloqueada { background-color: #607d8b; border: 1px solid #333; }
+
+#login-container {
+  background-color: #112d4e;
+  padding: 40px;
+  max-width: 400px;
+  margin: 100px auto;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+  text-align: center;
+}
+
+#login-container input {
+  padding: 10px;
+  width: 80%;
+  border: none;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+#login-container button {
+  background-color: #00bfa5;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+#malla-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  max-width: 1300px;
+  margin: auto;
+  padding: 20px;
+}
+
+.anio {
+  background-color: rgba(0, 255, 204, 0.05);
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #1de9b6;
+}
+
+.anio h2 {
+  margin-bottom: 10px;
+  color: #00bfa5;
+}
+
+.cuatrimestre {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+.materia {
+  background-color: #80cbc4;
+  color: #003c3c;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 2px solid transparent;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.materia.bloqueada {
+  background-color: #37474f;
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.materia.regularizada {
+  background-color: #1de9b6;
+  color: #003c3c;
+}
+
+.materia.aprobada {
+  background-color: #00c853;
+  color: #fff;
+}
+
+.materia:hover:not(.bloqueada) {
+  border: 2px solid #00bfa5;
+}
+
+.materia .nombre {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.materia .correlativas {
+  font-size: 0.75rem;
+  margin-top: 8px;
+  color: #004d40;
+}
