@@ -1,5 +1,5 @@
 // =========================
-// Datos de materias (resumido aquí)
+// Datos de materias (completo y simplificado para ejemplo)
 // =========================
 const materias = [
   { id: '1', nombre: 'Cálculo I', anio: 1, cuatri: 1, correlativas: [] },
@@ -9,7 +9,20 @@ const materias = [
   { id: '5', nombre: 'Álgebra Lineal', anio: 1, cuatri: 2, correlativas: [] },
   { id: '6', nombre: 'Física', anio: 1, cuatri: 2, correlativas: ['4'] },
   { id: '7', nombre: 'Química Inorgánica', anio: 1, cuatri: 2, correlativas: ['2'] },
-  // ... (completar con todas las materias restantes)
+  { id: '8', nombre: 'Cálculo II', anio: 2, cuatri: 3, correlativas: ['5'] },
+  { id: '9', nombre: 'Electromagnetismo', anio: 2, cuatri: 3, correlativas: ['6'] },
+  { id: '10', nombre: 'Informática', anio: 2, cuatri: 3, correlativas: ['5'] },
+  { id: '11', nombre: 'Dibujo', anio: 2, cuatri: 3, correlativas: ['ANY:3'] },
+  { id: '12', nombre: 'Ecuaciones Diferenciales', anio: 2, cuatri: 4, correlativas: ['8'] },
+  { id: '13', nombre: 'Métodos Numéricos', anio: 2, cuatri: 4, correlativas: ['8', '10'] },
+  { id: '14', nombre: 'Termodinámica', anio: 2, cuatri: 4, correlativas: ['8'] },
+  { id: '15', nombre: 'Química Orgánica', anio: 2, cuatri: 4, correlativas: ['7'] },
+  { id: '16', nombre: 'Probabilidad y Estadística', anio: 3, cuatri: 5, correlativas: ['5'] },
+  { id: '17', nombre: 'Inglés Técnico I', anio: 3, cuatri: 5, correlativas: ['ANY:3'] },
+  { id: '18', nombre: 'Elementos de Estabilidad', anio: 3, cuatri: 5, correlativas: ['5', '6'] },
+  { id: '19', nombre: 'Balance de Masa y Energía', anio: 3, cuatri: 5, correlativas: ['10', '14'] },
+  { id: '20', nombre: 'Fisicoquímica', anio: 3, cuatri: 5, correlativas: ['12', '13', '14'] },
+  // más materias continuarían aquí
 ];
 
 // =========================
@@ -46,9 +59,15 @@ function crearMalla() {
     materiasPorAnio[mat.anio].push(mat);
   }
 
+  const row = document.createElement('div');
+  row.style.display = 'flex';
+  row.style.gap = '30px';
+  row.style.overflowX = 'auto';
+
   for (const anio in materiasPorAnio) {
     const divAnio = document.createElement('div');
     divAnio.className = 'anio';
+    divAnio.style.minWidth = '300px';
     divAnio.innerHTML = `<h2>Año ${anio}</h2>`;
 
     const cuatris = {};
@@ -67,16 +86,16 @@ function crearMalla() {
         divMat.id = `materia-${mat.id}`;
         divMat.innerHTML = `<div class="nombre">${mat.id}. ${mat.nombre}</div>`;
 
-        // Mostrar correlativas (solo numéricas, no condiciones especiales)
         if (mat.correlativas.length > 0) {
           const correlativasText = mat.correlativas.map(c => {
+            if (c.startsWith('ANY:')) return `Mín. ${c.split(':')[1]} materias`;
             const ref = materias.find(m => m.id === c);
             return ref ? `${ref.id}. ${ref.nombre}` : '';
           }).join('<br>');
           divMat.innerHTML += `<div class="correlativas">Requiere:<br>${correlativasText}</div>`;
         }
 
-        const estado = estados[mat.id] || null; // null, 'regularizada', 'aprobada'
+        const estado = estados[mat.id] || null;
         const habilitada = puedeCursarse(mat, estados);
 
         if (!habilitada && !estado) {
@@ -97,8 +116,10 @@ function crearMalla() {
 
       divAnio.appendChild(divCuatri);
     }
-    container.appendChild(divAnio);
+    row.appendChild(divAnio);
   }
+
+  container.appendChild(row);
 }
 
 function puedeCursarse(materia, estados) {
@@ -109,7 +130,7 @@ function puedeCursarse(materia, estados) {
       if (contadorAprobadas < cantidad) return false;
     } else {
       const estado = estados[req];
-      if (!estado) return false; // ni regularizada ni aprobada
+      if (!estado) return false;
     }
   }
   return true;
@@ -130,7 +151,3 @@ function cambiarEstado(id) {
   guardarEstadoMaterias(estados);
   crearMalla();
 }
-
-// Si hay un usuario guardado, podrías usarlo automáticamente (opcional)
-// usuario = localStorage.getItem('ultimo_usuario');
-// if (usuario) iniciarUsuario();
